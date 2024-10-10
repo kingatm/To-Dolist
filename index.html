@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do App</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      display: flex;
+      width: 80%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .left-pane {
+      width: 50%;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .right-pane {
+      width: 50%;
+      padding: 20px;
+    }
+
+    #task-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    #task-list li {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+    }
+
+    #task-list li button {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 18px;
+    }
+
+    form input {
+      width: 80%;
+      padding: 10px;
+      margin-right: 10px;
+    }
+
+    form button {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Left pane with task list -->
+    <div class="left-pane">
+      <h2>TASK LIST</h2>
+      <p>Add tasks to your list by typing to the right and pressing enter. You may then view pending tasks below.</p>
+      <ul id="task-list">
+        <!-- Tasks will be dynamically added here -->
+      </ul>
+    </div>
+
+    <!-- Right pane with task form -->
+    <div class="right-pane">
+      <h2>I need to...</h2>
+      <form id="task-form">
+        <input type="text" id="new-task" placeholder="Enter a new task" required />
+        <button type="submit">Add Task</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // Select form and task list elements
+    const taskForm = document.getElementById('task-form')
+    const taskList = document.getElementById('task-list')
+
+    // Handle form submission
+    taskForm.addEventListener('submit', function (e) {
+      e.preventDefault()
+
+      // Get task input value
+      const newTaskInput = document.getElementById('new-task')
+      const taskName = newTaskInput.value
+
+      // Create a new list item
+      const listItem = document.createElement('li')
+
+      // Create checkbox and delete button
+      const checkbox = document.createElement('input')
+      checkbox.type = 'checkbox'
+
+      const deleteBtn = document.createElement('button')
+      deleteBtn.innerHTML = '&times;'
+
+      // Append task name, checkbox, and delete button to the list item
+      listItem.append(taskName, checkbox, deleteBtn)
+
+      // Append the list item to the task list
+      taskList.appendChild(listItem)
+
+      // Clear the task input field
+      newTaskInput.value = ''
+
+      // Handle delete button click
+      deleteBtn.addEventListener('click', function () {
+        taskList.removeChild(listItem)
+      })
+    })
+  </script>
+</body>
+</html>
